@@ -1,1 +1,59 @@
-{"Sud":{"Sudname":"Sengenthaler Festbier","Kochdauer":60,"Nachisomerisierungszeit":0},"Rasten":[{"Dauer":0,"Mengenfaktor":1,"Name":"Einmaischen","Temp":65,"Typ":1},{"Dauer":35,"Mengenfaktor":1,"Name":"Maltoserast","Temp":63,"Typ":1},{"Dauer":25,"Mengenfaktor":1,"Name":"Verzuckerungsrast ","Temp":73,"Typ":1},{"Dauer":0,"Mengenfaktor":1,"Name":"Abmaischen","Temp":78,"Typ":1}],"Hopfengaben":[{"Name":"Magnum","Vorderwuerze":1,"Zeit":60},{"Name":"Tettnanger","Vorderwuerze":3,"Zeit":35},{"Name":"Tettnanger","Vorderwuerze":3,"Zeit":15},{"Name":"Mandarina Bavaria","Vorderwuerze":3,"Zeit":5}]}
+{
+  "Sud": {
+    "Sudname": "Sengenthaler Festbier",
+    "Kochdauer": 60,
+    "Nachisomerisierungszeit": 0
+  },
+  "Rasten": [
+    {
+      "Dauer": 0,
+      "Mengenfaktor": 1,
+      "Name": "Einmaischen",
+      "Temp": 65,
+      "Typ": 1
+    },
+    {
+      "Dauer": 35,
+      "Mengenfaktor": 1,
+      "Name": "Maltoserast",
+      "Temp": 63,
+      "Typ": 1
+    },
+    {
+      "Dauer": 25,
+      "Mengenfaktor": 1,
+      "Name": "Verzuckerungsrast ",
+      "Temp": 73,
+      "Typ": 1
+    },
+    {
+      "Dauer": 0,
+      "Mengenfaktor": 1,
+      "Name": "Abmaischen",
+      "Temp": 78,
+      "Typ": 1
+    }
+  ],
+  "Hopfengaben": [
+    {
+      "Name": "Magnum",
+      "Vorderwuerze": 1,
+      "Zeit": 60
+    },
+    {
+      "Name": "Tettnanger",
+      "Vorderwuerze": 3,
+      "Zeit": 35
+    },
+    {
+      "Name": "Tettnanger",
+      "Vorderwuerze": 3,
+      "Zeit": 15
+    },
+    {
+      "Name": "Mandarina Bavaria",
+      "Vorderwuerze": 3,
+      "Zeit": 5
+    }
+  ]
+}

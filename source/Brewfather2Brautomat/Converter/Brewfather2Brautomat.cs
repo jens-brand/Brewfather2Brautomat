@@ -14,8 +14,11 @@
 // 
 
 using System.Security.Cryptography;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Unicode;
+using System.Web;
 using JensBrand.Brewfather2Brautomat.BrautomatModel;
 using JensBrand.Brewfather2Brautomat.BrewfatherModel;
 
@@ -43,7 +46,10 @@ public class Brewfather2Brautomat
         rezept.Hopfengaben = GetHopfenGaben(brewfatherRecipe, rezept.Sud.Kochdauer);
         rezept.Rasten = GetRasten(brewfatherRecipe);
 
-        JsonSerializer.Serialize(brautomatStream, rezept);
+        var options = new JsonSerializerOptions();
+        options.WriteIndented = true;
+        options.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement);
+        JsonSerializer.Serialize(brautomatStream, rezept, options);
     }
 
     /// <summary>
@@ -54,10 +60,46 @@ public class Brewfather2Brautomat
     private static List<Rast> GetRasten(Recipe brewfatherRecipe)
     {
         var rasten = new List<Rast>();
+        if (!brewfatherRecipe.Mash.Steps.Any())
+        {
+            return rasten;
+        }
+        
+        // zuerst eine Einmaische-Rast suchen und wenn nicht gefunden hinzufügen
+        var firstStep = brewfatherRecipe.Mash.Steps[0];
+        var einmaischeStepGefunden = false;
+        if (firstStep.Name.Equals("Einmaischen", StringComparison.InvariantCultureIgnoreCase))
+        {
+            einmaischeStepGefunden = true;
+        }
+        else
+        {
+            if ( brewfatherRecipe.Mash.Steps.Count > 1)
+            {
+                var secondStep = brewfatherRecipe.Mash.Steps[1];
+                if (secondStep.StepTemp < firstStep.StepTemp)
+                {
+                    einmaischeStepGefunden = true;
+                }
+            }
+        }
+
+        if (!einmaischeStepGefunden)
+        {
+            var rast = new Rast();
+            rast.Name = "Einmaischen";
+            rast.Temp = (firstStep.StepTemp ?? 0) + 2;
+            rast.Dauer = 1;
+            rast.Mengenfaktor = 1;
+            rast.Typ = RastTyp.Aufheizen;
+            rasten.Add(rast);
+        }
+        
+
         foreach (var mashStep in brewfatherRecipe.Mash.Steps)
         {
             var rast = new Rast();
-            rast.Name = mashStep.Name;
+            rast.Name = HttpUtility.UrlDecode(mashStep.Name);
             rast.Temp = mashStep.StepTemp ?? 0;
             rast.Dauer = mashStep.StepTime ?? 0;
             rast.Mengenfaktor = 1;
@@ -95,7 +137,7 @@ public class Brewfather2Brautomat
     private static Sud GetSudInfos(Recipe brewfatherRecipe)
     {
         var sud = new Sud();
-        sud.Name = brewfatherRecipe.Name;
+        sud.Name = HttpUtility.UrlDecode(brewfatherRecipe.Name);
         sud.Kochdauer = (int)(brewfatherRecipe.BoilTime ?? 0d);
         sud.Nachisomerisierungszeit = brewfatherRecipe.Equipment.WirlpoolTime ?? 0;
         return sud;
@@ -113,7 +155,7 @@ public class Brewfather2Brautomat
         foreach (var hop in brewfatherRecipe.Hops)
         {
             var hopfengabe = new Hopfengabe();
-            hopfengabe.Name = hop.Name;
+            hopfengabe.Name = HttpUtility.UrlDecode(hop.Name);
             hopfengabe.Kochdauer = hop.Time ?? 0;
 
             switch (hop.Use.ToUpper())

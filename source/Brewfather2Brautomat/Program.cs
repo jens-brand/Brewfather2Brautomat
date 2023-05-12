@@ -2,6 +2,7 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Web;
 using JensBrand.Brewfather2Brautomat.BrewfatherModel;
 
 namespace JensBrand.Brewfather2Brautomat;
@@ -10,7 +11,7 @@ public static class Program
 {
     public static int Main(string[] args)
     {
-        var folder = @"D:\Github\Brewfather2Brautomat\Brewfather2Brautomat\Brewfather2Brautomat\TestFiles\";
+        var folder = @"D:\Github\Brewfather2Brautomat\source\Brewfather2Brautomat\TestFiles\";
 
         foreach (var file in Directory.GetFiles(folder, "*.json"))
         {
