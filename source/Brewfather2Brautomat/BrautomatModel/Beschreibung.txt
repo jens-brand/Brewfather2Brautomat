@@ -1,0 +1,77 @@
+{
+    "Hopfengaben": [
+		// Vorderwuerze (Typ Hopfengabe)
+		// 1 =: Vorderwürze -> Hopfenkochdauer = Gesamtkochdauer
+		// 2 =: Kochbeginn -> Hopfenkochdauer = Gesamtkochdauer
+		// 3 =: Kochen -> identisch mit Typ 0 ->  Hopfenkochdauer kleiner Gesamtkochdauert & grösser 0
+		// 4 =: Kochende -> Hopfenkochdauer = 0
+		// 5 =: Ausschlagen -> Hopfenkochdauer < 0 & grösser negative Nachisomerisierungszeit
+        {
+            "Name": "Hopfengabe 1",
+            "Vorderwuerze": 3,
+            "Zeit": 65
+        },
+        {
+            "Name": "Hopfengabe 2",
+            "Vorderwuerze": 0,
+            "Zeit": 15
+        },
+        {
+            "Name": "Hopfengabe 3",
+            "Vorderwuerze": 5,
+            "Zeit": -5
+        }
+    ],
+    "Rasten": [
+		// Rast Typ
+		// 0 := Einmaischen
+		// 1 := Aufheizen
+		// 2 := Zubrühen
+		// 3 := Dekoktion
+		
+		// Beispiel Rast Typ 3: Dekoktion
+		// "Dauer": 16, (Absetzdauer)
+		// "Mengenfaktor": 0.5,
+		// "Name": "1/2 Dickmaische in Pfanne",
+		// "Param1": 98, (Temp Kochen)
+		// "Param2": 30, (Dauer Kochen)
+		// "Param3": 70, (Temp zus. Rast)
+		// "Param4": 14, (Dauer zus. Rast)
+		// "Temp": 35,
+        {
+            "Dauer": 5,
+            "Mengenfaktor": 1,
+            "Name": "Einmaischen (40°)",
+            "Param1": 42.027452607300674,
+            "Param3": 20,
+            "Temp": 40,
+            "Typ": 0
+        },
+        {
+            "Dauer": 30,
+            "Mengenfaktor": 1,
+            "Name": "Maltoserast (63°)",
+            "Temp": 63,
+            "Typ": 1
+        }
+        {
+            "Dauer": 25,
+            "Mengenfaktor": 1,
+            "Name": "Verzuckerung (72°)",
+            "Temp": 72,
+            "Typ": 1
+        },
+        {
+            "Dauer": 1,
+            "Mengenfaktor": 1,
+            "Name": "Abmaischen (78°)",
+            "Temp": 78,
+            "Typ": 1
+        }
+    ],
+    "Sud": {
+        "Kochdauer": 75,
+        "Nachisomerisierungszeit": 10,
+        "Sudname": "Beliebiger Sudname"
+    }
+}
