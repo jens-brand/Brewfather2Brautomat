@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brewfather2Brautomat", "Brewfather2Brautomat\Brewfather2Brautomat.csproj", "{75DF55F5-BC07-46B4-95BA-088B1189CB70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{75DF55F5-BC07-46B4-95BA-088B1189CB70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{10ED76A0-91D3-4AEB-8180-D2CE53BD6447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{76AB2C2E-0AD9-46F2-8E42-52781FB9F2B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{75DF55F5-BC07-46B4-95BA-088B1189CB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75DF55F5-BC07-46B4-95BA-088B1189CB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75DF55F5-BC07-46B4-95BA-088B1189CB70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10ED76A0-91D3-4AEB-8180-D2CE53BD6447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10ED76A0-91D3-4AEB-8180-D2CE53BD6447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10ED76A0-91D3-4AEB-8180-D2CE53BD6447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10ED76A0-91D3-4AEB-8180-D2CE53BD6447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76AB2C2E-0AD9-46F2-8E42-52781FB9F2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76AB2C2E-0AD9-46F2-8E42-52781FB9F2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76AB2C2E-0AD9-46F2-8E42-52781FB9F2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76AB2C2E-0AD9-46F2-8E42-52781FB9F2B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,91 @@
+﻿@page "/brewfather2brautomat/fileconvert"
+
+@using JensBrand.Brewfather2Brautomat.Library.Converter
+@using BlazorDownloadFile
+@using System.Text
+@inject IBlazorDownloadFileService BlazorDownloadFileService
+
+<PageTitle>Brewfather JSON-Datei-Konverter</PageTitle>
+
+<MudCard Elevation="25">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Brewfather Datei umwandeln</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudText>Dieses Tool wandelt eine <MudLink href="https://web.brewfather.app/" Target="_blank">Brewfather</MudLink> JSON Datei in ein Format, das von der Brausteuerung <MudLink href="https://github.com/InnuendoPi/Brautomat" Target="_blank">Brautomat</MudLink> gelesen werden kann.</MudText>
+        <br/>
+        <MudText>
+            Bitte wählen Sie eine Brewfather-JSON-Datei aus, das Ergebnis wird Ihnen dann zum Download angeboten.
+        </MudText>
+        <br/>
+        <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudFileUpload T="IBrowserFile" FilesChanged="ProcessFile" Accept=".json">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           for="@context">
+                    Brewfather-Datei auswählen
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+        <MudTextField T="string" Variant="Variant.Outlined" Text="@selectedFileName" Disabled="true" />
+        <br/>
+        </MudStack>
+        <MudTextField T="string" Label="Log" Variant="Variant.Outlined" Text="@logText" Lines="15" />
+    </MudCardContent>
+</MudCard>
+
+
+@code {
+
+    private string? selectedFileName = null;
+    
+    private string logText;
+
+    private async Task ProcessFile(IBrowserFile file)
+    {
+        selectedFileName = file.Name;
+        
+        var sb = new StringBuilder();
+        sb.AppendLine($"Bearbeite Datei {file.Name}");
+        logText = sb.ToString();
+        
+        
+        var fileName = Path.ChangeExtension(file.Name, "brautomat.json");
+
+        sb.AppendLine($"Ausgabedatei {fileName}");
+        logText = sb.ToString();
+
+        try
+        {
+            using var inputStream = file.OpenReadStream();
+            using var outputStream = new MemoryStream();
+
+            sb.AppendLine("Konvertiere ...");
+            logText = sb.ToString();
+            
+            await Converter.Convert(inputStream, outputStream);
+
+            sb.AppendLine("Initiiere Download");
+            logText = sb.ToString();
+            
+            outputStream.Seek(0, SeekOrigin.Begin);
+            await BlazorDownloadFileService.DownloadFile(fileName, outputStream, "application/octet-stream");
+
+            sb.AppendLine("Fertig!");
+            logText = sb.ToString();
+        }
+        catch (Exception e)
+        {
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine(e.ToString());
+            logText = sb.ToString();
+        }
+    }
+
+}
